@@ -2,8 +2,9 @@ from setuptools import find_packages, setup
 
 setup(
     name="goldenverba",
-    version="0.3.1",
+    version="0.4.0",
     packages=find_packages(),
+    python_requires='>=3.10.0',
     entry_points={
         "console_scripts": [
             "verba=goldenverba.server.cli:cli",
@@ -24,8 +25,6 @@ setup(
     classifiers=[
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -36,10 +35,9 @@ setup(
         "python-dotenv==1.0.0",
         "openai==0.27.9",
         "wasabi==1.1.2",
-        "spacy==3.6.1",
         "fastapi==0.102.0",
         "uvicorn[standard]",
-        "click== 8.1.7",
+        "click==8.1.7",
         "asyncio",
         "tiktoken==0.5.1",
         "cohere==4.33",
@@ -53,8 +51,7 @@ setup(
             "wheel",
             "twine",
             "black>=23.7.0",
-            "setuptools",
-            "pre-commit",
+            "setuptools"
         ],
         "huggingface": [
             "sentence-transformers",
