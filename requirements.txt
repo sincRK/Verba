@@ -22,3 +22,5 @@ cohere==4.33
 requests
 pypdf2
 pre-commit
+unstructured-client
+sentencepiece

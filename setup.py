@@ -11,7 +11,13 @@ setup(
     },
     author="Weaviate",
     author_email="edward@weaviate.io",
-    description="Welcome to Verba: The Golden RAGtriever, an open-source initiative designed to offer a streamlined, user-friendly interface for Retrieval-Augmented Generation (RAG) applications. In just a few easy steps, dive into your data and make meaningful interactions!",
+    description=(
+        "Welcome to Verba: The Golden RAGtriever, "
+        "an open-source initiative designed to offer a streamlined, "
+        "user-friendly interface for Retrieval-Augmented Generation "
+        "(RAG) applications. In just a few easy steps, "
+        "dive into your data and make meaningful interactions!",
+    ),
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/weaviate/Verba",
@@ -39,6 +45,7 @@ setup(
         "cohere==4.33",
         "requests",
         "pypdf2",
+        "unstructured-client",
     ],
     extras_require={
         "dev": [
@@ -55,6 +62,7 @@ setup(
             "torch",
             "huggingface_hub",
             "accelerate",
+            "sentencepiece",
         ],
     },
 )
