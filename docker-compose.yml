@@ -7,18 +7,28 @@ services:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - 8000:8000
+      - 8001:8000
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ipc: host
     environment:
       - WEAVIATE_URL_VERBA=http://weaviate:8080
       - OPENAI_API_KEY=$OPENAI_API_KEY
-      ## IF YOU WANT AUTHENTICATION, UNCOMENT BELLOW 
+      ## IF YOU WANT AUTHENTICATION, UNCOMENT BELLOW
       ## AND ADD WEAVIATE SERVICE
       #- WEAVIATE_API_KEY_VERBA=adminkey
       #- COHERE_API_KEY=YOUR-COHERE-KEY
       #- UNSTRUCTURED_API_KEY=YOUR-UNSTRUCTURED-KEY
       #- GITHUB_TOKEN=YOUR-GITHUB-TOKEN
-      #- HF_TOKEN=YOUR-HUGGINGFACE-TOKEN
-      #- LLAMA2-7B-CHAT-HF=ENABLE-LLAMA2?-(True or False)
+      - HF_TOKEN=${HF_TOKEN}
+      - LLAMA2-7B-CHAT-HF=False
+      - UNSTRUCTURED_API_URL=${UNSTRUCTURED_API_URL}
 
     volumes:
       - ./data:/data/
