@@ -405,8 +405,6 @@ class VerbaManager:
                 raise EnvironmentError("Missing environment variables. When using Azure OpenAI, you need to set OPENAI_BASE_URL, AZURE_OPENAI_RESOURCE_NAME, AZURE_OPENAI_EMBEDDING_MODEL and OPENAI_MODEL. Please check documentation.")
 
 
-        
-
     def get_schemas(self) -> dict:
         """
         @returns dict - A dictionary with the schema names and their object count.
