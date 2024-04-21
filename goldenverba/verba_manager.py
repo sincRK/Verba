@@ -350,6 +350,12 @@ class VerbaManager:
             self.environment_variables["UNSTRUCTURED_API_KEY"] = True
         else:
             self.environment_variables["UNSTRUCTURED_API_KEY"] = False
+            
+        # Unstructured URL Key (supports self hosted)
+        if os.environ.get("UNSTRUCTURED_API_URL", "") != "":
+            self.environment_variables["UNSTRUCTURED_API_URL"] = True
+        else:
+            self.environment_variables["UNSTRUCTURED_API_URL"] = False
 
         # LLAMA2-7B-CHAT-HF
         if os.environ.get("LLAMA2-7B-CHAT-HF", "") == "True":
