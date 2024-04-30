@@ -21,11 +21,11 @@ class UnstructuredAPI(Reader):
 
     def __init__(self):
         super().__init__()
-        self.file_types = [".pdf"]
+        self.file_types = [".pdf", ".txt"]
         self.requires_env = ["UNSTRUCTURED_API_URL"]
         self.name = "UnstructuredAPIPDF"
-        self.description = ("Reads PDF files powered by unstructured.io "
-                            "via self hosted API.")
+        self.description = ("Reads PDF (and many more) files powered by "
+                            "unstructured.io via self hosted API.")
         self.input_form = InputForm.UPLOAD.value
 
     def load(
