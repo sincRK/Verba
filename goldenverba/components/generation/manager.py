@@ -11,6 +11,7 @@ from goldenverba.components.generation.Llama2Generator import Llama2Generator
 from goldenverba.components.generation.MistralSFTDPOv0Generator import (
     Mistral7BSFTDPOv0,
 )
+from goldenverba.components.generation.OllamaGenerator import OllamaGenerator
 
 
 class GeneratorManager:
@@ -21,6 +22,7 @@ class GeneratorManager:
             "CohereGenerator": CohereGenerator(),
             "Llama2Generator": Llama2Generator(),
             "Mistral7BSFTDPOv0Generator": Mistral7BSFTDPOv0(),
+            "OllamaGenerator": OllamaGenerator(),
         }
         self.selected_generator: Generator = self.generators["GPT3Generator"]
 

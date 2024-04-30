@@ -1,6 +1,6 @@
 import os
 import ssl
-from typing import Optional
+from collections.abc import AsyncIterator
 
 import weaviate
 from dotenv import load_dotenv
@@ -22,6 +22,7 @@ from goldenverba.components.reader.interface import Reader
 from goldenverba.components.reader.manager import ReaderManager
 from goldenverba.components.retriever.interface import Retriever
 from goldenverba.components.retriever.manager import RetrieverManager
+from goldenverba.server.types import ConversationItem, GeneratedMessage
 
 load_dotenv()
 
@@ -311,6 +312,13 @@ class VerbaManager:
             self.installed_libraries["torch"] = True
         except Exception:
             self.installed_libraries["torch"] = False
+            
+        try:
+            import httpx
+            
+            self.installed_libraries["httpx"] = True
+        except Exception:
+            self.installed_libraries["httpx"] = False
 
     def verify_variables(self) -> None:
         """
@@ -338,6 +346,24 @@ class VerbaManager:
             self.environment_variables["HF_TOKEN"] = True
         else:
             self.environment_variables["HF_TOKEN"] = False
+            
+        # HuggingFace Cache Key
+        if os.environ.get("HF_HOME", "") != "":
+            self.environment_variables["HF_HOME"] = True
+        else:
+            self.environment_variables["HF_HOME"] = False
+        
+        # Ollama API Key
+        if os.environ.get("OLLAMA_API_URL", "") != "":
+            self.environment_variables["OLLAMA_API_URL"] = True
+        else:
+            self.environment_variables["OLLAMA_API_URL"] = False
+
+        # Ollama Model Key
+        if os.environ.get("OLLAMA_MODEL", "") != "":
+            self.environment_variables["OLLAMA_MODEL"] = True
+        else:
+            self.environment_variables["OLLAMA_MODEL"] = False
 
         # Github Token Key
         if os.environ.get("GITHUB_TOKEN", "") != "":
@@ -552,7 +578,7 @@ class VerbaManager:
         return document
 
     async def generate_answer(
-        self, queries: list[str], contexts: list[str], conversation: dict
+        self, queries: list[str], contexts: list[str], conversation: list[ConversationItem],
     ):
         semantic_query = self.embedder_manager.selected_embedder.conversation_to_query(
             queries, conversation
@@ -583,8 +609,8 @@ class VerbaManager:
             return full_text
 
     async def generate_stream_answer(
-        self, queries: list[str], contexts: list[str], conversation: dict
-    ):
+        self, queries: list[str], contexts: list[str], conversation: list[ConversationItem],
+    ) -> AsyncIterator[GeneratedMessage]:
         semantic_query = self.embedder_manager.selected_embedder.conversation_to_query(
             queries, conversation
         )

@@ -44,6 +44,7 @@ setup(
         "requests",
         "pypdf2",
         "unstructured-client",
+        "httpx",
     ],
     extras_require={
         "dev": [
@@ -60,6 +61,7 @@ setup(
             "huggingface_hub",
             "accelerate",
             "sentencepiece",
+            "protobuf",
         ],
     },
 )
